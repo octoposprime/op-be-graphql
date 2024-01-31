@@ -9,10 +9,17 @@ import (
 
 	mo "github.com/octoposprime/op-be-graphql/internal/domain/model/object"
 	presentation "github.com/octoposprime/op-be-graphql/pkg/presentation/dto/model"
+	smodel "github.com/octoposprime/op-be-shared/pkg/model"
+	pb_user "github.com/octoposprime/op-be-shared/pkg/proto/pb/user"
 )
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, user presentation.UserInput) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		user.ID = &userId
+	}
 	dtoData := presentation.NewUserDto(&user)
 	resultData, err := r.CommandHandler.CreateUser(ctx, dtoData.ToPb())
 	if err != nil {
@@ -24,6 +31,11 @@ func (r *mutationResolver) CreateUser(ctx context.Context, user presentation.Use
 
 // UpdateUserRole is the resolver for the updateUserRole field.
 func (r *mutationResolver) UpdateUserRole(ctx context.Context, user presentation.UserInput) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		user.ID = &userId
+	}
 	dtoData := presentation.NewUserDto(&user)
 	resultData, err := r.CommandHandler.UpdateUserRole(ctx, dtoData.ToPb())
 	if err != nil {
@@ -35,6 +47,11 @@ func (r *mutationResolver) UpdateUserRole(ctx context.Context, user presentation
 
 // UpdateUserBase is the resolver for the updateUserBase field.
 func (r *mutationResolver) UpdateUserBase(ctx context.Context, user presentation.UserInput) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		user.ID = &userId
+	}
 	dtoData := presentation.NewUserDto(&user)
 	resultData, err := r.CommandHandler.UpdateUserBase(ctx, dtoData.ToPb())
 	if err != nil {
@@ -46,6 +63,11 @@ func (r *mutationResolver) UpdateUserBase(ctx context.Context, user presentation
 
 // UpdateUserStatus is the resolver for the updateUserStatus field.
 func (r *mutationResolver) UpdateUserStatus(ctx context.Context, user presentation.UserInput) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		user.ID = &userId
+	}
 	dtoData := presentation.NewUserDto(&user)
 	resultData, err := r.CommandHandler.UpdateUserStatus(ctx, dtoData.ToPb())
 	if err != nil {
@@ -57,6 +79,11 @@ func (r *mutationResolver) UpdateUserStatus(ctx context.Context, user presentati
 
 // DeleteUser is the resolver for the deleteUser field.
 func (r *mutationResolver) DeleteUser(ctx context.Context, id string) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		id = userId
+	}
 	inData := new(presentation.UserInput)
 	inData.ID = &id
 	dtoData := presentation.NewUserDto(inData)
@@ -70,6 +97,11 @@ func (r *mutationResolver) DeleteUser(ctx context.Context, id string) (*presenta
 
 // ChangeUserPassword is the resolver for the changeUserPassword field.
 func (r *mutationResolver) ChangeUserPassword(ctx context.Context, userPassword presentation.UserPasswordInput) (*bool, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		userPassword.UserID = userId
+	}
 	dtoData := presentation.NewUserPasswordDto(&userPassword)
 	err := r.CommandHandler.ChangePassword(ctx, dtoData.ToPb())
 	if err != nil {
@@ -82,6 +114,11 @@ func (r *mutationResolver) ChangeUserPassword(ctx context.Context, userPassword 
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*presentation.User, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		id = userId
+	}
 	var filter presentation.UserFilterInput
 	filter.ID = &id
 	dtoFilter := presentation.NewUserFilterDto(&filter)
@@ -100,6 +137,11 @@ func (r *queryResolver) User(ctx context.Context, id string) (*presentation.User
 
 // Users is the resolver for the users field.
 func (r *queryResolver) Users(ctx context.Context, filter *presentation.UserFilterInput) (*presentation.Users, error) {
+	userId := ctx.Value(smodel.QueryKeyUid).(string)
+	userType := ctx.Value(smodel.QueryKeyUType).(pb_user.UserType)
+	if userType != pb_user.UserType_UserTypeADMIN {
+		filter.ID = &userId
+	}
 	var results presentation.Users
 	if filter == nil {
 		filter = &presentation.UserFilterInput{}
