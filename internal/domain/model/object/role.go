@@ -4,7 +4,6 @@ var ROLES []Role = []Role{
 	RoleAdmin,
 	RoleManager,
 	RoleUser,
-	RoleGuest,
 }
 
 type Role struct {
@@ -32,12 +31,6 @@ var (
 		PermissionGroups: []PermissionGroup{
 			PermissionGroupNone,
 			PermissionGroupUserViewer,
-		},
-	}
-	RoleGuest Role = Role{
-		RoleName: "GUEST",
-		PermissionGroups: []PermissionGroup{
-			PermissionGroupNone,
 		},
 	}
 )

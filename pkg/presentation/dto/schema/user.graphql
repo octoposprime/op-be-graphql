@@ -149,7 +149,7 @@ enum UserType {
   """No Type"""
 	NONE
   """Admin"""
-	SYSTEM
+	ADMIN
   """User"""
 	USER
 }

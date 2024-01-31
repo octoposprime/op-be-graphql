@@ -383,20 +383,20 @@ const (
 	// No Type
 	UserTypeNone UserType = "NONE"
 	// Admin
-	UserTypeSystem UserType = "SYSTEM"
+	UserTypeAdmin UserType = "ADMIN"
 	// User
 	UserTypeUser UserType = "USER"
 )
 
 var AllUserType = []UserType{
 	UserTypeNone,
-	UserTypeSystem,
+	UserTypeAdmin,
 	UserTypeUser,
 }
 
 func (e UserType) IsValid() bool {
 	switch e {
-	case UserTypeNone, UserTypeSystem, UserTypeUser:
+	case UserTypeNone, UserTypeAdmin, UserTypeUser:
 		return true
 	}
 	return false
