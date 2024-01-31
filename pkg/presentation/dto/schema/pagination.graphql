@@ -1,0 +1,7 @@
+"""PageInput is used for pagination"""
+input PageInput {
+  """Limit is the max count of return values"""
+  Limit: Int
+  """Offset is the starting point of limitation"""
+  Offset: Int
+}

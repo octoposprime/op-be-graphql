@@ -1,0 +1,193 @@
+extend type Query {
+  """The User EP returns a single User that is given ID"""
+  user( Id: ID!): User! @goField(forceResolver: true) @auth(policy: "user.read")
+  """The Users EP takes filter and returns all Users of matched with filter"""
+  users(filter: UserFilterInput): Users! @goField(forceResolver: true) @auth(policy: "user.list")
+}
+
+type Users {
+  """The total number of Users that match the filter"""
+  Total: Int!
+  """The Users that match the filter"""
+  Users: [User!]!
+}
+
+"""User represents the basic values of the user"""
+type User {
+  """Id is the id of the user"""
+  Id: ID!
+  """UserName is the user name of the user"""
+  UserName: String!
+  """Email is the email address of the user"""
+  Email: String!
+  """Role is the role of the user"""
+  Role: String!
+  """UserType is the type of the user"""
+  UserType: UserType!
+  """UserStatus is the status of the user"""
+  UserStatus: UserStatus!
+  """UserBase is the base values of the user"""
+  UserBase: UserBase!
+  """CreatedAt is the create time of the user"""
+  CreatedAt: Timestamp!
+  """UpdatedAt is the update time of the user"""
+  UpdatedAt: Timestamp!  
+}
+
+"""UserBase represents the base values of the user"""
+type UserBase {
+  """Tags are the tag labels of the user"""
+  Tags: [String!]!
+  """FirstName is the first name of the user"""
+  FirstName: String!
+  """LastName is the last name of the user"""
+  LastName: String!
+}
+
+"""UserFilterInput is used for filtering the Users"""
+input UserFilterInput {
+  """Id is the id of the user"""
+  Id: ID
+  """UserName is the user name of the user"""
+  UserName: String
+  """Email is the email address of the user"""
+  Email: String
+  """UserType is the type of the user"""
+  UserType: UserType
+  """UserStatus is the status of the user"""
+  UserStatus: UserStatus
+  """Tags are the tag labels of the user"""
+  Tags: [String!]
+  """FirstName is the first name of the user"""
+  FirstName: String
+  """LastName is the last name of the user"""
+  LastName: String
+  """CreatedAtFrom is the start value of the create time of the user"""
+  CreatedAtFrom: Timestamp
+  """CreatedAtTo is the end value of the create time of the user"""
+  CreatedAtTo: Timestamp
+  """UpdatedAtFrom is the start value of the update time of the user"""
+  UpdatedAtFrom: Timestamp
+  """UpdatedAtTo is the end value of the update time of the user"""
+  UpdatedAtTo: Timestamp
+  """SearchText is the value of the full text search"""
+  SearchText: String
+  """SortType is the sorting type. It can be only ASC or DESC"""
+  SortType: String
+  """SortField is the sortable field of the user"""
+  SortField: UserSortField
+  """PageInput is used for pagination"""
+  Pagination: PageInput
+}
+
+"""User represents the basic values of the user"""
+input UserInput {
+  """Id is the id of the user"""
+  Id: ID
+  """UserName is the user name of the user"""
+  UserName: String
+  """Email is the email address of the user"""
+  Email: String
+  """Role is the role of the user"""
+  Role: String
+  """UserStatus is the status of the user"""
+  UserType: UserType
+  """UserStatus is the status of the user"""
+  UserStatus: UserStatus
+  """UserBase is the base values of the user"""
+  UserBase: UserBaseInput
+}
+
+"""UserBase represents the base values of the user"""
+input UserBaseInput {
+  """Tags are the tag labels of the user"""
+  Tags: [String!]
+  """FirstName is the first name of the user"""
+  FirstName: String
+  """LastName is the last name of the user"""
+  LastName: String
+}
+
+"""UserPassword represents the password values of the user"""
+type UserPassword {
+  """Id is the id of the user password"""
+  Id: ID!
+  """UserId is the id of the user"""
+  UserId: ID!
+  """Password is the password of the user"""
+  Password: String!
+  """PasswordStatus is the status of password of the user"""
+  PasswordStatus: PasswordStatus!
+}
+
+"""UserPassword represents the password values of the user"""
+input UserPasswordInput {
+  """Id is the id of the user password"""
+  Id: ID
+  """UserId is the id of the user"""
+  UserId: ID!
+  """Password is the password of the user"""
+  Password: String!
+}
+
+extend type Mutation {
+  """Create User EP creates a new user with given User and returns it"""
+  createUser(user: UserInput!): User! @goField(forceResolver: true) @auth(policy: "user.create")
+  """Update User Role EP updates given user role and returns it"""
+  updateUserRole(user: UserInput!): User! @goField(forceResolver: true) @auth(policy: "user.update.role")
+  """Update User Base EP updates the given user's base values and returns it"""
+  updateUserBase(user: UserInput!): User! @goField(forceResolver: true) @auth(policy: "user.update.base")
+  """Update User Status EP updates given user status and returns it"""
+  updateUserStatus(user: UserInput!): User! @goField(forceResolver: true) @auth(policy: "user.update.status")
+  """Delete User EP deletes User that is given ID and returns it"""
+  deleteUser(Id: ID!): User! @goField(forceResolver: true) @auth(policy: "user.delete")
+    """Change User Password EP updates given user password"""
+  changeUserPassword(userPassword: UserPasswordInput!): Boolean @goField(forceResolver: true) @auth(policy: "user.change.password")
+}
+
+enum UserType {
+  """No Type"""
+	NONE
+  """Admin"""
+	SYSTEM
+  """User"""
+	USER
+}
+
+enum UserSortField {
+  """No Type"""
+	None
+  """Id"""
+	Id
+  """Name"""
+	Name
+  """Created Time"""
+	CreatedAt
+  """Updated Time"""
+	UpdatedAt
+}
+
+enum UserStatus {
+  """No Type"""
+  NONE
+  """Active"""
+  ACTIVE
+  """Inactive"""
+  INACTIVE
+}
+
+enum PasswordStatus {
+  """No Type"""
+	NONE
+  """Active"""
+	ACTIVE
+  """Inactive"""
+	INACTIVE
+  """Auto Generated"""
+	AUTO_GENERATED
+  """Change Required"""
+	CHANGE_REQUIRED
+  """Expired"""
+	EXPIRED
+}
+

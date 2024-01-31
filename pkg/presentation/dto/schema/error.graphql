@@ -1,0 +1,9 @@
+extend type Query {
+  """The Errors EP returns all built-in Errors"""
+  errors: [Error!]! @goField(forceResolver: true) @auth(policy: "none")
+}
+
+"""Error represents the built-in error message"""
+type Error {
+  Error: String!
+}

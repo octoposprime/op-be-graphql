@@ -1,0 +1,32 @@
+extend type Query {
+  """The Roles EP returns all built-in Roles"""
+  roles(filter: RoleFilterInput): [Role!]! @goField(forceResolver: true) @auth(policy: "none")
+}
+
+"""Role represents the built-in role types"""
+type Role {
+  """RoleName is the name of the role of permission"""
+  RoleName: String!
+  """PermissionGroup represents the built-in groups of permissions"""
+  PermissionGroups: [PermissionGroup!]!
+}
+
+"""RoleFilterInput is used for filtering the Roles"""
+input RoleFilterInput {
+  """RoleName is the name of the role of permission"""
+  RoleName: String
+}
+
+"""PermissionGroup represents the built-in groups of permissions"""
+type PermissionGroup {
+  """GroupName is the name of the group of permission"""
+  GroupName: String!
+  """Permissions represents the built-in policies"""
+  Permissions: [Permission!]!
+}
+
+"""Permission represents the built-in policies"""
+type Permission {
+  """Policy represents the built-in policy type"""
+  Policy: String!
+}

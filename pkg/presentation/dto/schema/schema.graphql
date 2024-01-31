@@ -1,0 +1,26 @@
+directive @goField(forceResolver: Boolean, name: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @auth(policy: String!) on FIELD_DEFINITION
+
+scalar Timestamp
+scalar Upload
+
+"""Don't use"""
+type AuthOps {
+  """Don't use"""
+  Auth: Boolean! @goField(forceResolver: true)
+}
+
+type Query {
+  """Don't use"""
+	auth: AuthOps! @goField(forceResolver: true)
+}
+
+type Mutation {
+  """Don't use"""
+  auth: AuthOps! @goField(forceResolver: true)
+}
+
+type Subscription {
+  """Status Subscription returns all-new status to all subscribers at async"""
+  status: String!
+}

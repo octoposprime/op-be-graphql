@@ -1,0 +1,42 @@
+"""UserToken represents the object of a token for authentication"""
+type Token {
+  """AuthenticationToken is the authentication token"""
+  AuthenticationToken: String!
+  """RefreshToken is the refresh token"""
+  RefreshToken: String!
+}
+
+input TokenInput {
+  """AuthenticationToken is the authentication token"""
+  AuthenticationToken: String!
+  """RefreshToken is the refresh token"""
+  RefreshToken: String!
+}
+
+"""Login Request provides to authenticate in the system"""
+type LoginRequest {
+  """UserName is the user name of the user"""
+  UserName: String!
+  """Email is the email address of the user"""
+  Email: String!
+  """Password is the password of the user"""
+  Password: String!
+}
+
+input LoginRequestInput {
+  """UserName is the user name of the user"""
+  UserName: String
+  """Email is the email address of the user"""
+  Email: String
+  """Password is the password of the user"""
+  Password: String
+}
+
+extend type Mutation {
+  """The Login EP provides authenticate in the system and returns a new Token"""
+  login(loginRequest: LoginRequestInput!): Token! @goField(forceResolver: true)
+  """The Refresh EP returns a new AuthenticationToken with using RefreshToken and returns a new Token"""
+  refresh(token: TokenInput!): Token! @goField(forceResolver: true)
+  """The Logout EP clears Token and creates a log record"""
+  logout(token: TokenInput!): Boolean @goField(forceResolver: true)
+}
