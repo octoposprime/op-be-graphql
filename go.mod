@@ -2,8 +2,6 @@ module github.com/octoposprime/op-be-graphql
 
 go 1.20
 
-replace github.com/octoposprime/op-be-shared => ../op-be-shared
-
 require (
 	github.com/99designs/gqlgen v0.17.43
 	github.com/golobby/container/v3 v3.3.2
