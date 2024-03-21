@@ -57,6 +57,7 @@ func (u *UserDto) ToPb() *pb.User {
 
 // ToModel converts *PbData to *ModelData and returns it.
 func (u *UserDto) ToModel() *User {
+	u.ModelData.UserBase = new(UserBase)
 	u.ModelData.ID = u.PbData.Id
 	u.ModelData.UserName = u.PbData.Username
 	u.ModelData.Email = u.PbData.Email
