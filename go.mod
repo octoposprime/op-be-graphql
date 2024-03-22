@@ -2,15 +2,12 @@ module github.com/octoposprime/op-be-graphql
 
 go 1.20
 
-replace github.com/octoposprime/op-be-shared => ../op-be-shared
-
 require (
 	github.com/99designs/gqlgen v0.17.43
 	github.com/golobby/container/v3 v3.3.2
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/websocket v1.5.1
 	github.com/husamettinarabaci/gqltool v0.0.0-20230529191048-3a5b07a3e82e
-	github.com/octoposprime/op-be-shared v0.0.0-00010101000000-000000000000
 	github.com/redis/go-redis/v9 v9.4.0
 	github.com/vektah/gqlparser/v2 v2.5.11
 	google.golang.org/grpc v1.61.0

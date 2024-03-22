@@ -73,6 +73,7 @@ autobind:
 models:
   ID:
     model:
+      - github.com/husamettinarabaci/gqltool/uuid.Uuid
       - github.com/99designs/gqlgen/graphql.ID
       - github.com/99designs/gqlgen/graphql.Int32
       - github.com/99designs/gqlgen/graphql.Int
@@ -85,3 +86,6 @@ models:
   Timestamp:
     model:
       - github.com/husamettinarabaci/gqltool/timestamp.Timestamp
+  Uuid:
+    model:
+      - github.com/husamettinarabaci/gqltool/uuid.Uuid
